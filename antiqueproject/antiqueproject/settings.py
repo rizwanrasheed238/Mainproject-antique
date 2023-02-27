@@ -78,7 +78,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'antiqueproject.wsgi.application'
 AUTH_USER_MODEL='antiqueapp.Account'
 
-# Database
+# Databaser
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
