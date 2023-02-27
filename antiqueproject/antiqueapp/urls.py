@@ -20,6 +20,8 @@ urlpatterns = [
     # path('cart/', views.cart, name="cart"),
     path('blog/', views.blog, name="blog"),
     path('search/',views.search,name="search"),
+    path('seller/',views.seller,name="seller"),
+
 
 
     # path('',views.allProdcat,name='allProdCat'),

@@ -1,12 +1,12 @@
 
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, User, PermissionsMixin
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.urls import reverse
 
 
 
 class MyAccountManager(BaseUserManager):
-    def create_user(self, fname, lname, email,phone_number, password=None):
+    def create_user(self, fname, lname, email,phone_number,is_staff,is_user, password=None):
         if not email:
             raise ValueError('User must have an email address')
 
@@ -18,6 +18,8 @@ class MyAccountManager(BaseUserManager):
                         lname=lname,
                         fname=fname,
                         phone_number=phone_number,
+                        is_user=is_user,
+                        is_staff=is_staff,
 
         )
 
@@ -41,6 +43,8 @@ class MyAccountManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
+role_choices = (('customer', 'customer'), ('seller', 'seller'), ('None', 'None'))
+
 
 class Account(AbstractBaseUser,PermissionsMixin):
     id = models.AutoField(primary_key=True)
@@ -48,7 +52,7 @@ class Account(AbstractBaseUser,PermissionsMixin):
     lname = models.CharField(max_length=100, blank=True, null=True)
     email = models.EmailField(max_length=100, unique=True)
     phone_number = models.BigIntegerField(default=0)
-
+    roles= models.CharField(max_length=100,choices=role_choices,default="")
 
 
     # required
@@ -58,6 +62,9 @@ class Account(AbstractBaseUser,PermissionsMixin):
     is_admin = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
     is_superadmin = models.BooleanField(default=False)
+    is_seller=models.BooleanField(default=False,null=0)
+    approved_staff=models.BooleanField(default=False)
+    is_user=models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['fname', 'lname',  'phone_number',]

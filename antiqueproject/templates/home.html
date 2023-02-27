@@ -118,16 +118,10 @@
                     </div>
 
                     <div class="header-right">
-                        <div class="account">
-                            <a href="dashboard.html" title="My account">
-                                <div class="icon">
-                                    <i class="icon-user"></i>
-                                </div>
-                                <p>{{request.user.fname}}</p>
-                            </a>
-                        </div><!-- End .compare-dropdown -->
-
                         {% if user.is_authenticated %}
+
+
+
                         <div class="wishlist">
                             <a href="{% url 'view_wishlist' %}" title="Wishlist">
                                 <div class="icon">

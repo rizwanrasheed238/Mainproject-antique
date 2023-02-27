@@ -13,6 +13,6 @@ urlpatterns = [
     path('de_wishlist/<int:id>/', views.de_wishlist, name='de_wishlist'),
     path('checkout/',views.checkout,name='checkout'),
     path('paymentdone/', views.payment_done, name='paymentdone'),
-    path('address/', views.address, name="address"),
+
 
 ]

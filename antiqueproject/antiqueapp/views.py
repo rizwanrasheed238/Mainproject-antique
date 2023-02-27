@@ -9,10 +9,11 @@ from django.shortcuts import render
 
 from django.shortcuts import render
 from django.contrib import messages, auth
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
 from .models import Account,Category,product
 from django.contrib.auth import authenticate
 from django.db.models import Q
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
@@ -23,20 +24,6 @@ from django.core.mail import EmailMessage
 from django.core.mail import send_mail
 
 
-
-
-
-# from asyncio.windows_events import NULL
-# from django.shortcuts import render, redirect
-# from category.models import Category, Subcategory
-# from credentialapp.models import log_user
-# from productapp.models import Product
-# from django.contrib import messages
-# from credentialapp.views import login
-# from .models import Cart, Wishlist
-# from django.contrib import messages
-
-# # Create your views here.
 def products(request):
     products = product.objects.all()
     category = Category.objects.all()
@@ -67,13 +54,22 @@ def login(request):
         user=authenticate(email=email, password=password)
         if user is not None:
             auth.login(request, user)
-            request.session['email']=email
             messages.success(request, 'you are logged in')
-            # store user details in session
-
             request.session['email']=email
 
-            return redirect('home')
+            if user.is_admin:
+                return redirect('admin/')
+            elif user.approved_staff:
+                return redirect('seller')
+
+            elif user.is_user:
+                return redirect('home')
+            else:
+                messages.success(request, 'invalid email')
+                return redirect('register')
+
+
+
         else:
             messages.success(request, 'invalid login credentials')
             return redirect('register')
@@ -88,6 +84,14 @@ def register(request):
         phone_number=request.POST['phone']
         password=request.POST['password']
         cpassword = request.POST['cpassword']
+        roles = request.POST['roles']
+        is_user = is_staff = False
+        if roles == 'is_admin':
+            is_admin = True
+        if roles == 'is_user':
+            is_user = True
+        else:
+            is_staff = True
 
         print(email,password,fname,lname,phone_number)
         if Account.objects.filter(email=email).exists():
@@ -98,7 +102,7 @@ def register(request):
              messages.info(request,"password not matching")
              return redirect('login')
         else:
-            user=Account.objects.create_user(email=email, password=password, fname=fname, lname=lname,  phone_number=phone_number)
+            user=Account.objects.create_user(email=email, password=password, fname=fname, lname=lname,  phone_number=phone_number,is_staff=is_staff,is_user=is_user)
             user.save()
             messages.success(request, 'you are registered')
             messages.success(request, 'Thank you for registering with us.')
@@ -230,31 +234,6 @@ def resetPassword(request):
     else:
         return render(request, 'resetPassword.html')
 
-# def add_wishlist(request,id):
-#     if 'email' in request.session:
-#         item=Account.objects.get(id=id)
-#         user=request.session['email']
-#         if Account.objects.filter( user_id =user,product_id=item).exists():
-#             return redirect('view_wishlist')
-#         else:
-#             new_wishlist=Account(user_id=user,product_id=item.id)
-#             new_wishlist.save()
-#             return redirect('view_wishlist')
-#     messages.success(request, 'Sign in..!!')
-#     return redirect(login)
-#
-#
-# @login_required(login_url='login')
-# def view_wishlist(request):
-#     if 'email' in request.session:
-#         email = request.session['email']
-#         cart=Account.objects.filter(user_id=email)
-#         category=Category.objects.all()
-#
-#         return render(request,"wishlist.html",{'cart':cart,'email':email,'category':category})
-#     return redirect(login)
-#
-# # Remove Items From Wishlist
-# def de_wishlist(request,id):
-#     Account.objects.get(id=id).delete()
-#     return redirect('view_wishlist')
+def seller(request):
+    return render(request, 'seller.html')
+

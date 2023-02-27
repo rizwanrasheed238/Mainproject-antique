@@ -61,17 +61,3 @@ class OrderPlaced(models.Model):
         return self.user.fname
 
 
-class address(models.Model):
-    user = models.ForeignKey(Account, on_delete=models.CASCADE, verbose_name='Email')
-    fname = models.CharField(max_length=200, verbose_name='First Name')
-    lname = models.CharField(max_length=200, verbose_name='Last Name')
-    phone_no = models.CharField(max_length=200)
-    email = models.EmailField(max_length=200)
-    hname = models.CharField(max_length=200)
-    street = models.CharField(max_length=200)
-    city = models.CharField(max_length=200)
-    district = models.CharField(max_length=200)
-    pin = models.CharField(max_length=200)
-
-    def __str__(self):
-        return self.fname

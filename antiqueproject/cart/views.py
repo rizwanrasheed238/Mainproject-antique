@@ -4,7 +4,7 @@ import razorpay as razorpay
 from django.shortcuts import render, redirect
 from django.contrib import messages, auth
 from django.contrib.auth.decorators import login_required
-from cart.models import Cart, Wishlist, Payment, OrderPlaced,address
+from cart.models import Cart, Wishlist, Payment, OrderPlaced
 from antiqueapp.models import Category, product
 
 @login_required(login_url='login')
@@ -165,19 +165,4 @@ def payment_done(request):
     return redirect('home')
 
 
-def Address(request):
-    if request.method == 'POST':
-        email=request.POST['email']
-        password=request.POST['password']
-        fname=request.POST['fname']
-        lname=request.POST['lname']
-        phone_number=request.POST['phone']
-        street=request.POST['street']
-        city = request.POST['city']
-        state = request.POST['state']
-        zip = request.POST['zip']
-        profile = address(user=request.user, fname=fname, lname=lname, phone_number=phone_number,email=email,city=city, state=state, zip=zip)
-        profile.save()
-        messages.success(request, 'New address is added...!')
-    return render(request, 'checkout.html')
 
