@@ -72,7 +72,7 @@ class Account(AbstractBaseUser,PermissionsMixin):
     objects = MyAccountManager()
 
 
-    def _str_(self):
+    def __str__(self):
         return self.email
 
     def has_perm(self, perm, obj=None):
@@ -117,8 +117,8 @@ class product(models.Model):
         verbose_name_plural = 'products'
 
 
-def __str__(self):
-    return '{}'.format(self.name)
+    def __str__(self):
+        return '{}'.format(self.name)
 
 
 

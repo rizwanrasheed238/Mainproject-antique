@@ -31,8 +31,8 @@ class Payment(models.Model):
     paid = models.BooleanField(default=False)
     # customer = models.ForeignKey(Address_Book, on_delete=models.SET_NULL, null=True, default=1)
 
-    def _str_(self):
-        return self.user.name
+    def __str__(self):
+        return self.user.email
 
 class OrderPlaced(models.Model):
     STATUS = (
@@ -52,12 +52,12 @@ class OrderPlaced(models.Model):
     ordered_date = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-
+    def __str__(self):
+        return self.product.name
 
     def total_cost(self):
         return self.quantity
 
-    def _str_(self):
-        return self.product.name
+
 
 
