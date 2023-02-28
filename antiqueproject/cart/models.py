@@ -14,7 +14,7 @@ class Cart(models.Model):
     price = models.FloatField(default=0)
 
     def get_product_price(self):
-        price = [self.product.price]
+        price = [self.product.name]
         return sum(price)
 
 class Wishlist(models.Model):
@@ -32,7 +32,7 @@ class Payment(models.Model):
     # customer = models.ForeignKey(Address_Book, on_delete=models.SET_NULL, null=True, default=1)
 
     def _str_(self):
-        return self.customer.fname
+        return self.user.name
 
 class OrderPlaced(models.Model):
     STATUS = (
@@ -58,6 +58,6 @@ class OrderPlaced(models.Model):
         return self.quantity
 
     def _str_(self):
-        return self.user.fname
+        return self.product.name
 
 
