@@ -6,7 +6,7 @@ from django.urls import reverse
 
 
 class MyAccountManager(BaseUserManager):
-    def create_user(self, fname, lname, email,phone_number,is_staff,is_user, password=None):
+    def create_user(self, fname, lname, email,phone_number,is_staff,is_user,password=None):
         if not email:
             raise ValueError('User must have an email address')
 
@@ -27,7 +27,7 @@ class MyAccountManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, fname, email, lname, password,  phone_number,):
+    def create_superuser(self, fname, email, lname, password, phone_number):
         user = self.create_user(
             email=self.normalize_email(email),
             fname=fname,
@@ -39,6 +39,7 @@ class MyAccountManager(BaseUserManager):
         user.is_admin = True
         user.is_active = True
         user.is_staff = True
+        user.is_user=True
         user.is_superadmin = True
         user.save(using=self._db)
         return user
@@ -62,7 +63,6 @@ class Account(AbstractBaseUser,PermissionsMixin):
     is_admin = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
     is_superadmin = models.BooleanField(default=False)
-    is_seller=models.BooleanField(default=False,null=0)
     approved_staff=models.BooleanField(default=False)
     is_user=models.BooleanField(default=False)
 

@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'antiqueapp',
     'jazzmin',
     'cart',
+    'seller',
     'channels',
     'django.contrib.admin',
     'django.contrib.auth',

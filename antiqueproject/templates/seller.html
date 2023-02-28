@@ -102,7 +102,7 @@
             </li>
             <li class="nav-item dropdown d-none d-xl-inline-flex user-dropdown">
               <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-                <img class="img-xs rounded-circle ml-2" src="{% static 'seller/images/faces/face8.jpg' %}" alt="Profile image"> <span class="font-weight-normal"> Henry Klein </span></a>
+                <img class="img-xs rounded-circle ml-2" src="{% static 'seller/images/faces/face8.jpg' %}" alt="Profile image"> <span class="font-weight-normal">{{user.username}}</span></a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
                 <div class="dropdown-header text-center">
                   <img class="img-md rounded-circle" src="{% static 'seller/images/faces/face8.jpg' %}" alt="Profile image">
@@ -147,14 +147,14 @@
               <span class="nav-link">Dashboard</span>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="index.html">
+              <a class="nav-link" href="{% url 'seller' %}">
                 <span class="menu-title">Dashboard</span>
                 <i class="icon-screen-desktop menu-icon"></i>
               </a>
             </li>
             <li class="nav-item nav-category"><span class="nav-link">Manage</span></li>
             <li class="nav-item">
-              <a class="nav-link" data-toggle="collapse" href="{%url '' %}" aria-expanded="false" aria-controls="ui-basic">
+              <a class="nav-link" data-toggle="collapse" href="{% url 'addproduct' %}" aria-expanded="false" aria-controls="ui-basic">
                 <span class="menu-title">Add products</span>
                 <i class="icon-layers menu-icon"></i>
               </a>
@@ -166,7 +166,7 @@
               </div>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="pages/icons/simple-line-icons.html">
+              <a class="nav-link" href="{%url 'viewproduct' %}">
                 <span class="menu-title">View Products</span>
                 <i class="icon-globe menu-icon"></i>
               </a>
@@ -254,26 +254,26 @@
             <!-- Quick Action Toolbar Starts-->
             <div class="row quick-action-toolbar">
               <div class="col-md-12 grid-margin">
-                <div class="card">
-                  <div class="card-header d-block d-md-flex">
-                    <h5 class="mb-0">Quick Actions</h5>
-<!--                    <p class="ml-auto mb-0">How are your active users trending overtime?<i class="icon-bulb"></i></p>-->
-                  </div>
-                  <div class="d-md-flex row m-0 quick-action-btns" role="group" aria-label="Quick action buttons">
-                    <div class="col-sm-6 col-md-3 p-3 text-center btn-wrapper">
-                      <button type="button" class="btn px-0"> <i class="icon-user mr-2"></i> Add Client</button>
-                    </div>
-                    <div class="col-sm-6 col-md-3 p-3 text-center btn-wrapper">
-                      <button type="button" class="btn px-0"><i class="icon-docs mr-2"></i> Create Quote</button>
-                    </div>
-                    <div class="col-sm-6 col-md-3 p-3 text-center btn-wrapper">
-                      <button type="button" class="btn px-0"><i class="icon-folder mr-2"></i> Enter Payment</button>
-                    </div>
-                    <div class="col-sm-6 col-md-3 p-3 text-center btn-wrapper">
-                      <button type="button" class="btn px-0"><i class="icon-book-open mr-2"></i>Create Invoice</button>
-                    </div>
-                  </div>
-                </div>
+<!--                <div class="card">-->
+<!--                  <div class="card-header d-block d-md-flex">-->
+<!--                    <h5 class="mb-0">Quick Actions</h5>-->
+<!--&lt;!&ndash;                    <p class="ml-auto mb-0">How are your active users trending overtime?<i class="icon-bulb"></i></p>&ndash;&gt;-->
+<!--                  </div>-->
+<!--                  <div class="d-md-flex row m-0 quick-action-btns" role="group" aria-label="Quick action buttons">-->
+<!--                    <div class="col-sm-6 col-md-3 p-3 text-center btn-wrapper">-->
+<!--                      <button type="button" class="btn px-0"> <i class="icon-user mr-2"></i> Add Client</button>-->
+<!--                    </div>-->
+<!--                    <div class="col-sm-6 col-md-3 p-3 text-center btn-wrapper">-->
+<!--                      <button type="button" class="btn px-0"><i class="icon-docs mr-2"></i> Create Quote</button>-->
+<!--                    </div>-->
+<!--                    <div class="col-sm-6 col-md-3 p-3 text-center btn-wrapper">-->
+<!--                      <button type="button" class="btn px-0"><i class="icon-folder mr-2"></i> Enter Payment</button>-->
+<!--                    </div>-->
+<!--                    <div class="col-sm-6 col-md-3 p-3 text-center btn-wrapper">-->
+<!--                      <button type="button" class="btn px-0"><i class="icon-book-open mr-2"></i>Create Invoice</button>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
               </div>
             </div>
             <!-- Quick Action Toolbar Ends-->
@@ -380,63 +380,64 @@
                       <table class="table">
                         <thead>
                           <tr>
-                            <th class="font-weight-bold">Store ID</th>
-                            <th class="font-weight-bold">Amount</th>
-                            <th class="font-weight-bold">Gateway</th>
-                            <th class="font-weight-bold">Created at</th>
-                            <th class="font-weight-bold">Paid at</th>
+                            <th class="font-weight-bold">Product Name</th>
+                            <th class="font-weight-bold">Description</th>
+                            <th class="font-weight-bold">Price</th>
+                            <th class="font-weight-bold">Category</th>
+                            <th class="font-weight-bold">Stock</th>
                             <th class="font-weight-bold">Status</th>
                           </tr>
                         </thead>
+
                         <tbody>
+                          {% for p in products %}
                           <tr>
                             <td>
-                              <img class="img-sm rounded-circle" src="{% static 'seller/images/faces/face1.jpg' %}" alt="profile image"> Katie Holmes
+                              <img class="img-sm rounded-circle" src="{{p.product_image.url}}" alt="profile image"> {{p.name}}
                             </td>
-                            <td>$3621</td>
-                            <td><img src="{% static 'seller/images/dashboard/alipay.png' %}" alt="alipay" class="gateway-icon mr-2"> alipay</td>
-                            <td>04 Jun 2019</td>
-                            <td>18 Jul 2019</td>
-                            <td>
-                              <div class="badge badge-success p-2">Paid</div>
-                            </td>
+                            <td>{{p.descripton}}</td>
+                            <td>{{p.price}}</td>
+                            <td>{{p.category}}</td>
+                            <td>{{p.stock}}</td>
+                            <td><a href="{% url 'deleteproduct' p.id %}" class="btn btn-sm btn-danger mb-2 ">Delete</a></td>
                           </tr>
-                          <tr>
-                            <td>
-                              <img class="img-sm rounded-circle" src="images/faces/face2.jpg" alt="profile image"> Minnie Copeland
-                            </td>
-                            <td>$6245</td>
-                            <td><img src="images/dashboard/paypal.png" alt="alipay" class="gateway-icon mr-2"> Paypal</td>
-                            <td>25 Sep 2019</td>
-                            <td>07 Oct 2019</td>
-                            <td>
-                              <div class="badge badge-danger p-2">Pending</div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <img class="img-sm rounded-circle" src="images/faces/face3.jpg" alt="profile image"> Rodney Sims
-                            </td>
-                            <td>$9265</td>
-                            <td><img src="images/dashboard/alipay.png" alt="alipay" class="gateway-icon mr-2"> alipay</td>
-                            <td>12 dec 2019</td>
-                            <td>26 Aug 2019</td>
-                            <td>
-                              <div class="badge badge-warning p-2">Failed</div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <img class="img-sm rounded-circle" src="images/faces/face4.jpg" alt="profile image"> Carolyn Barker
-                            </td>
-                            <td>$2263</td>
-                            <td><img src="images/dashboard/alipay.png" alt="alipay" class="gateway-icon mr-2"> alipay</td>
-                            <td>30 Sep 2019</td>
-                            <td>20 Oct 2019</td>
-                            <td>
-                              <div class="badge badge-success p-2">Paid</div>
-                            </td>
-                          </tr>
+                           {% endfor %}
+<!--                          <tr>-->
+<!--                            <td>-->
+<!--                              <img class="img-sm rounded-circle" src="images/faces/face2.jpg" alt="profile image"> Minnie Copeland-->
+<!--                            </td>-->
+<!--                            <td>$6245</td>-->
+<!--                            <td><img src="images/dashboard/paypal.png" alt="alipay" class="gateway-icon mr-2"> Paypal</td>-->
+<!--                            <td>25 Sep 2019</td>-->
+<!--                            <td>07 Oct 2019</td>-->
+<!--                            <td>-->
+<!--                              <div class="badge badge-danger p-2">Pending</div>-->
+<!--                            </td>-->
+<!--                          </tr>-->
+<!--                          <tr>-->
+<!--                            <td>-->
+<!--                              <img class="img-sm rounded-circle" src="images/faces/face3.jpg" alt="profile image"> Rodney Sims-->
+<!--                            </td>-->
+<!--                            <td>$9265</td>-->
+<!--                            <td><img src="images/dashboard/alipay.png" alt="alipay" class="gateway-icon mr-2"> alipay</td>-->
+<!--                            <td>12 dec 2019</td>-->
+<!--                            <td>26 Aug 2019</td>-->
+<!--                            <td>-->
+<!--                              <div class="badge badge-warning p-2">Failed</div>-->
+<!--                            </td>-->
+<!--                          </tr>-->
+<!--                          <tr>-->
+<!--                            <td>-->
+<!--                              <img class="img-sm rounded-circle" src="images/faces/face4.jpg" alt="profile image"> Carolyn Barker-->
+<!--                            </td>-->
+<!--                            <td>$2263</td>-->
+<!--                            <td><img src="images/dashboard/alipay.png" alt="alipay" class="gateway-icon mr-2"> alipay</td>-->
+<!--                            <td>30 Sep 2019</td>-->
+<!--                            <td>20 Oct 2019</td>-->
+<!--                            <td>-->
+<!--                              <div class="badge badge-success p-2">Paid</div>-->
+<!--                            </td>-->
+<!--                          </tr>-->
                         </tbody>
                       </table>
                     </div>

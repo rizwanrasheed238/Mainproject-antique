@@ -31,7 +31,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('antiqueapp.urls')),
     path('',include('cart.urls')),
-
+    path('', include('seller.urls')),
 
 ]
 if settings.DEBUG:
