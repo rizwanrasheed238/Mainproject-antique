@@ -2,6 +2,7 @@ from django.db import models
 
 
 
+
 # Create your models here.
 class seller_product(models.Model):
     name=models.CharField(max_length=250,unique=True)
@@ -16,6 +17,9 @@ class seller_product(models.Model):
         ordering = ('name',)
         verbose_name = 'product'
         verbose_name_plural = 'products'
+
+    def __str__(self):
+        return self.name
 
 
 def __str__(self):
