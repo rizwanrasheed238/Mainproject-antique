@@ -604,7 +604,7 @@
                                         <script>
                         var options = {
                             "key": 'rzp_test_nxdXNnVaXveQ3g', // Enter the Key ID generated from the Dashboard
-                            "amount": "{{total}}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                            "amount": "{{razoramount}}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
                             "currency": "INR",
                             "name": "The Medieval Store",
                             "description": "Test Transaction",
@@ -693,6 +693,14 @@
 	            			</div><!-- End .widget -->
 	            		</div><!-- End .col-sm-6 col-lg-3 -->
 
+<div style="height:300px;text-align: center;">
+    <h2 style="font-family: sans-serif;color: rgb(246, 86, 12); margin-top: 130px;" >Payment success !!!!</h2><br>
+    <div class="button-area">
+      <a href="{% url 'home' %}" style="font-weight:bold;color:rgb(240, 16, 16);">Continue Shopping</a>
+
+
+      </div>
+</div>
 	            		<div class="col-sm-6 col-lg-3">
 	            			<div class="widget">
 	            				<h4 class="widget-title">My Account</h4><!-- End .widget-title -->
