@@ -6,7 +6,6 @@ from django.urls import path,include
 urlpatterns = [
     path('index/',views.index,name='index'),
     path('', views.home, name="home"),
-
     path('login/',views.login,name="login"),
     path('register/', views.register, name="register"),
     path('logout/', views.logout, name="logout"),
@@ -21,6 +20,7 @@ urlpatterns = [
     path('blog/', views.blog, name="blog"),
     path('search/',views.search,name="search"),
     path('seller/',views.seller,name="seller"),
+    path('dashboard/',views.dashboard,name="dashboard"),
 
 
 

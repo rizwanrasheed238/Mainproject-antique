@@ -130,14 +130,22 @@
 
                     <div class="header-right">
                         {% if user.is_authenticated %}
-
+                        <div class="header-right">
+                        <div class="account">
+                            <a href="{% url 'dashboard' %}" title="My account">
+                                <div class="icon">
+                                    <i class="icon-user"></i>
+                                </div>
+                                <p>{{user.fname}}</p>
+                            </a>
+                        </div>
 
 
                         <div class="wishlist">
                             <a href="{% url 'view_wishlist' %}" title="Wishlist">
                                 <div class="icon">
                                     <i class="icon-heart-o"></i>
-                                    <span class="wishlist-count badge">4</span>
+                                    <span class="wishlist-count badge">{{id.count}}</span>
                                 </div>
                                 <p>Wishlist</p>
                             </a>
@@ -149,65 +157,11 @@
 <!--                                <a href="{% url 'cart' %}" title="cart" role="button" data-display="static">&ndash;&gt;-->
                                 <div class="icon">
                                     <i class="icon-shopping-cart"></i>
-                                    <span class="cart-count">{{i.id}}</span>
+                                    <span class="cart-count">{{i.count}}</span>
                                 </div>
                                 <p>Cart</p>
                             </a>
 
-<!--                            <div class="dropdown-menu dropdown-menu-right">-->
-<!--                                <div class="dropdown-cart-products">-->
-<!--                                    <div class="product">-->
-<!--                                        <div class="product-cart-details">-->
-<!--                                            <h4 class="product-title">-->
-<!--                                                <a href="productview.html">Beige knitted elastic runner shoes</a>-->
-<!--                                            </h4>-->
-
-<!--                                            <span class="cart-product-info">-->
-<!--                                                <span class="cart-product-qty">1</span>-->
-<!--                                                x $84.00-->
-<!--                                            </span>-->
-<!--                                        </div>&lt;!&ndash; End .product-cart-details &ndash;&gt;-->
-
-<!--                                        <figure class="product-image-container">-->
-<!--                                            <a href="productview.html" class="product-image">-->
-<!--                                                <img src="{% static 'assets/images/products/cart/product-1.jpg' %}" alt="product">-->
-<!--                                            </a>-->
-<!--                                        </figure>-->
-<!--                                        <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>-->
-<!--                                    </div>&lt;!&ndash; End .product &ndash;&gt;-->
-
-<!--                                    <div class="product">-->
-<!--                                        <div class="product-cart-details">-->
-<!--                                            <h4 class="product-title">-->
-<!--                                                <a href="productview.html">Blue utility pinafore denim dress</a>-->
-<!--                                            </h4>-->
-
-<!--                                            <span class="cart-product-info">-->
-<!--                                                <span class="cart-product-qty">1</span>-->
-<!--                                                x $76.00-->
-<!--                                            </span>-->
-<!--                                        </div>&lt;!&ndash; End .product-cart-details &ndash;&gt;-->
-
-<!--                                        <figure class="product-image-container">-->
-<!--                                            <a href="productview.html" class="product-image">-->
-<!--                                                <img src="{% static 'assets/images/products/cart/product-2.jpg' %}" alt="product">-->
-<!--                                            </a>-->
-<!--                                        </figure>-->
-<!--                                        <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>-->
-<!--                                    </div>&lt;!&ndash; End .product &ndash;&gt;-->
-<!--                                </div>&lt;!&ndash; End .cart-product &ndash;&gt;-->
-
-<!--                                <div class="dropdown-cart-total">-->
-<!--                                    <span>Total</span>-->
-
-<!--                                    <span class="cart-total-price">$160.00</span>-->
-<!--                                </div>&lt;!&ndash; End .dropdown-cart-total &ndash;&gt;-->
-
-<!--                                <div class="dropdown-cart-action">-->
-<!--                                    <a href="productview.html" class="btn btn-primary">View Cart</a>-->
-<!--                                    <a href="checkout.html" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>-->
-<!--                                </div>&lt;!&ndash; End .dropdown-cart-total &ndash;&gt;-->
-<!--                            </div>&lt;!&ndash; End .dropdown-menu &ndash;&gt;-->
                         </div><!-- End .cart-dropdown -->
                         {% else %}
                          <a href="{% url 'login' %}" class="dropdown-toggle" >
@@ -447,93 +401,12 @@
                                     <a href="" class="sf-with-ul">Interiors</a>
 
 
-<!--                                    <div class="megamenu megamenu-md">-->
-<!--                                        <div class="row no-gutters">-->
-<!--                                            <div class="col-md-8">-->
-<!--                                                <div class="menu-col">-->
-<!--                                                    <div class="row">-->
-<!--                                                        <div class="col-md-6">-->
-<!--                                                            <div class="menu-title">Shop with sidebar</div>&lt;!&ndash; End .menu-title &ndash;&gt;-->
-<!--                                                            <ul>-->
-<!--                                                                <li><a href="category-list.html">Shop List</a></li>-->
-<!--                                                                <li><a href="category-2cols.html">Shop Grid 2 Columns</a></li>-->
-<!--                                                                <li><a href="category.html">Shop Grid 3 Columns</a></li>-->
-<!--                                                                <li><a href="category-4cols.html">Shop Grid 4 Columns</a></li>-->
-<!--                                                                <li><a href="category-market.html"><span>Shop Market<span class="tip tip-new">New</span></span></a></li>-->
-<!--                                                            </ul>-->
-
-<!--                                                            <div class="menu-title">Shop no sidebar</div>&lt;!&ndash; End .menu-title &ndash;&gt;-->
-<!--                                                            <ul>-->
-<!--                                                                <li><a href="category-boxed.html"><span>Shop Boxed No Sidebar<span class="tip tip-hot">Hot</span></span></a></li>-->
-<!--                                                                <li><a href="category-fullwidth.html">Shop Fullwidth No Sidebar</a></li>-->
-<!--                                                            </ul>-->
-<!--                                                        </div>&lt;!&ndash; End .col-md-6 &ndash;&gt;-->
-
-<!--                                                        <div class="col-md-6">-->
-<!--                                                            <div class="menu-title">Product Category</div>&lt;!&ndash; End .menu-title &ndash;&gt;-->
-<!--                                                            <ul>-->
-<!--                                                                <li><a href="product-category-boxed.html">Product Category Boxed</a></li>-->
-<!--                                                                <li><a href="product-category-fullwidth.html"><span>Product Category Fullwidth<span class="tip tip-new">New</span></span></a></li>-->
-<!--                                                            </ul>-->
-<!--                                                            <div class="menu-title">Shop Pages</div>&lt;!&ndash; End .menu-title &ndash;&gt;-->
-<!--                                                            <ul>-->
-<!--                                                                <li><a href="productview.html">Cart</a></li>-->
-<!--                                                                <li><a href="checkout.html">Checkout</a></li>-->
-<!--                                                                <li><a href="wishlist.html">Wishlist</a></li>-->
-<!--                                                                <li><a href="dashboard.html">My Account</a></li>-->
-<!--                                                                <li><a href="#">Lookbook</a></li>-->
-<!--                                                            </ul>-->
-<!--                                                        </div>&lt;!&ndash; End .col-md-6 &ndash;&gt;-->
-<!--                                                    </div>&lt;!&ndash; End .row &ndash;&gt;-->
-<!--                                                </div>&lt;!&ndash; End .menu-col &ndash;&gt;-->
-<!--                                            </div>&lt;!&ndash; End .col-md-8 &ndash;&gt;-->
-
-<!--                                            <div class="col-md-4">-->
-<!--                                                <div class="banner banner-overlay">-->
-<!--                                                    <a href="category.html" class="banner banner-menu">-->
-<!--                                                        <img src="{% static 'assets/images/menu/banner-1.jpg' %}" alt="Banner">-->
-
-<!--                                                        <div class="banner-content banner-content-top">-->
-<!--                                                            <div class="banner-title text-white">Last <br>Chance<br><span><strong>Sale</strong></span></div>&lt;!&ndash; End .banner-title &ndash;&gt;-->
-<!--                                                        </div>&lt;!&ndash; End .banner-content &ndash;&gt;-->
-<!--                                                    </a>-->
-<!--                                                </div>&lt;!&ndash; End .banner banner-overlay &ndash;&gt;-->
-<!--                                            </div>&lt;!&ndash; End .col-md-4 &ndash;&gt;-->
-<!--                                        </div>&lt;!&ndash; End .row &ndash;&gt;-->
-<!--                                    </div>&lt;!&ndash; End .megamenu megamenu-md &ndash;&gt;-->
                                 </li>
                                 <li>
                                     <a href="{% url 'products' %}" class="sf-with-ul">Product</a>
 
                                     <div class="megamenu megamenu-sm">
                                         <div class="row no-gutters">
-<!--                                            <div class="col-md-6">-->
-<!--                                                <div class="menu-col">-->
-<!--                                                    <div class="menu-title">Product Details</div>&lt;!&ndash; End .menu-title &ndash;&gt;-->
-<!--                                                    <ul>-->
-<!--                                                        <li><a href="product.html">Default</a></li>-->
-<!--                                                        <li><a href="product-centered.html">Centered</a></li>-->
-<!--                                                        <li><a href="product-extended.html"><span>Extended Info<span class="tip tip-new">New</span></span></a></li>-->
-<!--                                                        <li><a href="product-gallery.html">Gallery</a></li>-->
-<!--                                                        <li><a href="product-sticky.html">Sticky Info</a></li>-->
-<!--                                                        <li><a href="product-sidebar.html">Boxed With Sidebar</a></li>-->
-<!--                                                        <li><a href="product-fullwidth.html">Full Width</a></li>-->
-<!--                                                        <li><a href="product-masonry.html">Masonry Sticky Info</a></li>-->
-<!--                                                    </ul>-->
-<!--                                                </div>&lt;!&ndash; End .menu-col &ndash;&gt;-->
-<!--                                            </div>&lt;!&ndash; End .col-md-6 &ndash;&gt;-->
-
-<!--                                            <div class="col-md-6">-->
-<!--                                                <div class="banner banner-overlay">-->
-<!--                                                    <a href="category.html">-->
-<!--                                                        <img src="{% static 'assets/images/menu/banner-2.jpg' %}" alt="Banner">-->
-
-<!--                                                        <div class="banner-content banner-content-bottom">-->
-<!--                                                            <div class="banner-title text-white">Vintage Collections<br><span><strong>since 1892</strong></span></div>&lt;!&ndash; End .banner-title &ndash;&gt;-->
-<!--                                                        </div>&lt;!&ndash; End .banner-content &ndash;&gt;-->
-<!--                                                    </a>-->
-<!--                                                </div>&lt;!&ndash; End .banner &ndash;&gt;-->
-<!--                                            </div>&lt;!&ndash; End .col-md-6 &ndash;&gt;-->
                                         </div><!-- End .row -->
                                     </div><!-- End .megamenu megamenu-sm -->
                                 </li>
@@ -566,43 +439,6 @@
                                 <li>
                                     <a href="{% url 'blog' %}" class="sf-with-ul">Blog</a>
 
-<!--                                    <ul>-->
-<!--                                        <li><a href="blog.html">Classic</a></li>-->
-<!--                                        <li><a href="blog-listing.html">Listing</a></li>-->
-<!--                                        <li>-->
-<!--                                            <a href="#">Grid</a>-->
-<!--                                            <ul>-->
-<!--                                                <li><a href="blog-grid-2cols.html">Grid 2 columns</a></li>-->
-<!--                                                <li><a href="blog-grid-3cols.html">Grid 3 columns</a></li>-->
-<!--                                                <li><a href="blog-grid-4cols.html">Grid 4 columns</a></li>-->
-<!--                                                <li><a href="blog-grid-sidebar.html">Grid sidebar</a></li>-->
-<!--                                            </ul>-->
-<!--                                        </li>-->
-<!--                                        <li>-->
-<!--                                            <a href="#">Masonry</a>-->
-<!--                                            <ul>-->
-<!--                                                <li><a href="blog-masonry-2cols.html">Masonry 2 columns</a></li>-->
-<!--                                                <li><a href="blog-masonry-3cols.html">Masonry 3 columns</a></li>-->
-<!--                                                <li><a href="blog-masonry-4cols.html">Masonry 4 columns</a></li>-->
-<!--                                                <li><a href="blog-masonry-sidebar.html">Masonry sidebar</a></li>-->
-<!--                                            </ul>-->
-<!--                                        </li>-->
-<!--                                        <li>-->
-<!--                                            <a href="#">Mask</a>-->
-<!--                                            <ul>-->
-<!--                                                <li><a href="blog-mask-grid.html">Blog mask grid</a></li>-->
-<!--                                                <li><a href="blog-mask-masonry.html">Blog mask masonry</a></li>-->
-<!--                                            </ul>-->
-<!--                                        </li>-->
-<!--                                        <li>-->
-<!--                                            <a href="#">Single Post</a>-->
-<!--                                            <ul>-->
-<!--                                                <li><a href="single.html">Default with sidebar</a></li>-->
-<!--                                                <li><a href="single-fullwidth.html">Fullwidth no sidebar</a></li>-->
-<!--                                                <li><a href="single-fullwidth-sidebar.html">Fullwidth with sidebar</a></li>-->
-<!--                                            </ul>-->
-<!--                                        </li>-->
-<!--                                    </ul>-->
                                 </li>
 
                             </ul><!-- End .menu -->
@@ -616,54 +452,6 @@
         </header><!-- End .header -->
 
         <main class="main">
-<!--            <div class="intro-slider-container">-->
-
-<!--                <div class="owl-carousel owl-simple owl-light owl-nav-inside" data-toggle="owl" data-owl-options='{"nav": false}'>-->
-<!--                    <div class="intro-slide" style="{% static 'background-image: url(static/assets/images/demos/demo-2/slider/slide-3.jpg);' %}">-->
-<!--                        <div class="container intro-content">-->
-<!--                            <h3 class="intro-subtitle">Bedroom Furniture</h3>&lt;!&ndash; End .h3 intro-subtitle &ndash;&gt;-->
-<!--                            <h1 class="intro-title">Find Comfort <br>That Suits You.</h1>&lt;!&ndash; End .intro-title &ndash;&gt;-->
-
-<!--                            <a href="category.html" class="btn btn-primary">-->
-<!--                                <span>Shop Now</span>-->
-<!--                                <i class="icon-long-arrow-right"></i>-->
-<!--                            </a>-->
-<!--                        </div>&lt;!&ndash; End .container intro-content &ndash;&gt;-->
-<!--                    </div>&lt;!&ndash; End .intro-slide &ndash;&gt;-->
-
-<!--                    <div class="intro-slide" style="{% static 'background-image: url(assets/images/demos/demo-2/slider/slide-1.jpg);' %}">-->
-<!--                        <div class="container intro-content">-->
-<!--                            <h3 class="intro-subtitle">Deals and Promotions</h3>&lt;!&ndash; End .h3 intro-subtitle &ndash;&gt;-->
-<!--                            <h1 class="intro-title">Ypperlig <br>Coffee Table <br><span class="text-primary"><sup>$</sup>49,99</span></h1>&lt;!&ndash; End .intro-title &ndash;&gt;-->
-
-<!--                            <a href="category.html" class="btn btn-primary">-->
-<!--                                <span>Shop Now</span>-->
-<!--                                <i class="icon-long-arrow-right"></i>-->
-<!--                            </a>-->
-<!--                        </div>&lt;!&ndash; End .container intro-content &ndash;&gt;-->
-<!--                    </div>&lt;!&ndash; End .intro-slide &ndash;&gt;-->
-
-<!--                    <div class="intro-slide" style="{% static 'background-image: url(assets/images/demos/demo-2/slider/slide-2.jpg);' %}">-->
-<!--                        <div class="container intro-content">-->
-<!--                            <h3 class="intro-subtitle">Living Room</h3>&lt;!&ndash; End .h3 intro-subtitle &ndash;&gt;-->
-<!--                            <h1 class="intro-title">-->
-<!--                                Make Your Living Room <br>Work For You.<br>-->
-<!--                                <span class="text-primary">-->
-<!--                                    <sup class="text-white font-weight-light">from</sup><sup>$</sup>9,99-->
-<!--                                </span>-->
-<!--                            </h1>-->
-<!--                             End .intro-title-->
-
-<!--                            <a href="category.html" class="btn btn-primary">-->
-<!--                                <span>Shop Now</span>-->
-<!--                                <i class="icon-long-arrow-right"></i>-->
-<!--                            </a>-->
-<!--                        </div>&lt;!&ndash; End .container intro-content &ndash;&gt;-->
-<!--                    </div>&lt;!&ndash; End .intro-slide &ndash;&gt;-->
-<!--                </div>&lt;!&ndash; End .owl-carousel owl-simple &ndash;&gt;-->
-
-<!--                <span class="slider-loader text-white"></span>&lt;!&ndash; End .slider-loader &ndash;&gt;-->
-<!--            </div>&lt;!&ndash; End .intro-slider-container &ndash;&gt;-->
 
 
 
@@ -734,49 +522,6 @@
 
             <div class="mb-3 mb-lg-5"></div><!-- End .mb-3 mb-lg-5 -->
 
-
-<!--            <div class="banner-group">-->
-<!--                <div class="container">-->
-<!--                    <div class="row">-->
-<!--                        <div class="col-md-12 col-lg-5">-->
-<!--                            <div class="banner banner-large banner-overlay banner-overlay-light">-->
-<!--                                <a href="#">-->
-<!--                                    <img src="{{i.image.url}}" alt="Banner">-->
-<!--                                </a>-->
-
-<!--                                <div class="banner-content banner-content-top">-->
-
-<!--                                    <h3 class="banner-title"><mark>{{i.name}}</mark></h3>&lt;!&ndash; End .banner-title &ndash;&gt;-->
-<!--                                    <div class="banner-text">{{i.descripton}}</div>&lt;!&ndash; End .banner-text &ndash;&gt;-->
-<!--                                    <a href="#" class="btn btn-outline-gray banner-link">Shop Now<i class="icon-long-arrow-right"></i></a>-->
-<!--                                </div>&lt;!&ndash; End .banner-content &ndash;&gt;-->
-<!--                            </div>&lt;!&ndash; End .banner &ndash;&gt;-->
-<!--                        </div>&lt;!&ndash; End .col-lg-5 &ndash;&gt;-->
-<!--                        -->
-<!--                        -->
-
-<!--            <div class="banner-group">-->
-<!--                <div class="container">-->
-<!--                    <div class="row">-->
-<!--                        {%  for i in category %}-->
-<!--                             <div class="col-md-12 col-lg-5">-->
-<!--                                <div class="banner banner-large banner-overlay banner-overlay-light">-->
-<!--                                    <a href="{% url 'products' %}">-->
-
-<!--                                        <img src="{{i.image.url}}" alt="Banner" style="height:500px width:120px;">-->
-<!--                                    </a>-->
-
-<!--                                    <div class="banner-content banner-content-middle">-->
-<!--                                     <h3 class="banner-title"><mark>{{i.name}}</mark></h3>&lt;!&ndash; End .banner-title &ndash;&gt;&ndash;&gt;-->
-<!--                                        <div class="banner-text">{{i.descripton}}</div>&lt;!&ndash; End .banner-text &ndash;&gt;-->
-<!--                                        <a href="{% url 'products' %}" class="btn btn-outline-gray banner-link">Shop Now<i class="icon-long-arrow-right"></i></a>-->
-<!--                                    </div>&lt;!&ndash; End .banner-content &ndash;&gt;-->
-<!--                                </div>&lt;!&ndash; End .banner &ndash;&gt;-->
-<!--                            </div>&lt;!&ndash; End .col-lg-5 &ndash;&gt;-->
-<!--                        {% endfor %}-->
-<!--                        </div>&lt;!&ndash; End .row &ndash;&gt;-->
-<!--                </div>&lt;!&ndash; End .container &ndash;&gt;-->
-<!--            </div>-->
             <div class="container">
                 <div class="heading heading-center mb-3">
                     <h2 class="title">Our Products</h2><!-- End .title -->

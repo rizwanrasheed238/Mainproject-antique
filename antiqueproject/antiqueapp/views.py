@@ -237,3 +237,5 @@ def resetPassword(request):
 def seller(request):
     return render(request, 'seller.html')
 
+def dashboard(request):
+    return render(request, 'dashboard.html')
