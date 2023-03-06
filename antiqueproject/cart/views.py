@@ -108,6 +108,7 @@ def de_wishlist(request,id):
 def checkout(request):
     user = request.user
     cart = Cart.objects.filter(user_id=user)
+    orders =OrderPlaced.objects.filter(user_id=user)
     total = 0
     for i in cart:
         total += i.product.price * i.product_qty
@@ -146,7 +147,7 @@ def checkout(request):
                           razorpay_payment_status=order_status)
         payment.save()
 
-    return render(request, 'checkout.html', {'check': cart, 'total': total, 'category': category,'razoramount':razoramount})
+    return render(request, 'checkout.html', {'orders':orders,'check': cart, 'total': total, 'category': category,'razoramount':razoramount})
 
 def payment_done(request):
     order_id=request.session['order_id']
@@ -169,6 +170,8 @@ def payment_done(request):
 
     return redirect('home')
 
+
+#pdf generate
 def get(request, id, *args, **kwargs, ):
         place = OrderPlaced.objects.get(id=id)
         date = place.payment.created_at

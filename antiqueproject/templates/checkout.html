@@ -174,72 +174,87 @@
             			<form id="myform" method="POST" action="{% url 'checkout' %}">
 
 		                	<div class="row">
-	                		<div class="col-lg-9">-->
-                                <form action="Address" method="post" >
-                                    {% csrf_token %}
-		                			<h2 class="checkout-title">Billing Details</h2><!-- End .checkout-title -->
-		                				<div class="row">
-		                					<div class="col-sm-6">
-		                						<label>First Name *</label>
-		                						<input type="text" class="form-control" required name="fname" value="{{user.fname}}">
-		                					</div><!-- End .col-sm-6 -->
+<!--	                		<div class="col-lg-9">&ndash;&gt;-->
+<!--                                <form action="Address" method="post" >-->
+<!--                                    {% csrf_token %}-->
+<!--		                			<h2 class="checkout-title">Billing Details</h2>&lt;!&ndash; End .checkout-title &ndash;&gt;-->
+<!--		                				<div class="row">-->
+<!--		                					<div class="col-sm-6">-->
+<!--		                						<label>First Name *</label>-->
+<!--		                						<input type="text" class="form-control" required name="fname" value="{{user.fname}}">-->
+<!--		                					</div>&lt;!&ndash; End .col-sm-6 &ndash;&gt;-->
 
-		                					<div class="col-sm-6">
-		                						<label>Last Name *</label>
-		                						<input type="text" class="form-control" required name="lname" value="{{user.lname}}">
-		                					</div><!-- End .col-sm-6 -->
-		                				</div><!-- End .row -->
-
-
+<!--		                					<div class="col-sm-6">-->
+<!--		                						<label>Last Name *</label>-->
+<!--		                						<input type="text" class="form-control" required name="lname" value="{{user.lname}}">-->
+<!--		                					</div>&lt;!&ndash; End .col-sm-6 &ndash;&gt;-->
+<!--		                				</div>&lt;!&ndash; End .row &ndash;&gt;-->
 
 
-	            						<label>Street address *</label>
-	            						<input type="text" class="form-control" name="street" placeholder="House number and Street name" required>
-
-	            						<div class="row">
-		                					<div class="col-sm-6">
-		                						<label>City *</label>
-		                						<input type="text" name="city" class="form-control" required>
-		                					</div><!-- End .col-sm-6 -->
-
-		                					<div class="col-sm-6">
-		                						<label>State *</label>
-		                						<input type="text" name="state" class="form-control" required>
-		                					</div><!-- End .col-sm-6 -->
 
 
-		                				</div><!-- End .row -->
+<!--	            						<label>Street address *</label>-->
+<!--	            						<input type="text" class="form-control" name="street" placeholder="House number and Street name" required>-->
 
-		                				<div class="row">
-		                					<div class="col-sm-6">
-		                						<label>Postcode / ZIP *</label>
-		                						<input type="text" name="zip" class="form-control" required>
-		                					</div><!-- End .col-sm-6 -->
+<!--	            						<div class="row">-->
+<!--		                					<div class="col-sm-6">-->
+<!--		                						<label>City *</label>-->
+<!--		                						<input type="text" name="city" class="form-control" required>-->
+<!--		                					</div>&lt;!&ndash; End .col-sm-6 &ndash;&gt;-->
 
-		                					<div class="col-sm-6">
-		                						<label>Phone *</label>
-		                						<input type="tel" name="phone_number" class="form-control" required name="phone" value="{{user.phone_number}}">
-		                					</div><!-- End .col-sm-6 -->
-		                				</div><!-- End .row -->
+<!--		                					<div class="col-sm-6">-->
+<!--		                						<label>State *</label>-->
+<!--		                						<input type="text" name="state" class="form-control" required>-->
+<!--		                					</div>&lt;!&ndash; End .col-sm-6 &ndash;&gt;-->
 
-	                					<label>Email address *</label>
-	        							<input type="email" name="email" class="form-control" required name="email" value="{{user.email}}">
 
-<!--	        							<div class="custom-control custom-checkbox">-->
-                                        <button type="submit" class="btn btn-outline-primary-2 btn-order btn-block">Save Details</button>
+<!--		                				</div>&lt;!&ndash; End .row &ndash;&gt;-->
 
-										<!-- End .custom-checkbox -->
+<!--		                				<div class="row">-->
+<!--		                					<div class="col-sm-6">-->
+<!--		                						<label>Postcode / ZIP *</label>-->
+<!--		                						<input type="text" name="zip" class="form-control" required>-->
+<!--		                					</div>&lt;!&ndash; End .col-sm-6 &ndash;&gt;-->
 
-										<div class="custom-control custom-checkbox">
-											<input type="checkbox" class="custom-control-input" id="checkout-diff-address">
-											<label class="custom-control-label" for="checkout-diff-address">Ship to a different address?</label>
-										</div><!-- End .custom-checkbox -->
+<!--		                					<div class="col-sm-6">-->
+<!--		                						<label>Phone *</label>-->
+<!--		                						<input type="tel" name="phone_number" class="form-control" required name="phone" value="{{user.phone_number}}">-->
+<!--		                					</div>&lt;!&ndash; End .col-sm-6 &ndash;&gt;-->
+<!--		                				</div>&lt;!&ndash; End .row &ndash;&gt;-->
 
-	                					<label>Order notes (optional)</label>
+<!--	                					<label>Email address *</label>-->
+<!--	        							<input type="email" name="email" class="form-control" required name="email" value="{{user.email}}">-->
 
-	        							<textarea class="form-control" cols="30" rows="4" placeholder="Notes about your order, e.g. special notes for delivery"></textarea>
-		                		</form>
-		                		 </div><!-- End .col-lg-9 -->
+<!--&lt;!&ndash;	        							<div class="custom-control custom-checkbox">&ndash;&gt;-->
+<!--                                        <button type="submit" class="btn btn-outline-primary-2 btn-order btn-block">Save Details</button>-->
+
+<!--										&lt;!&ndash; End .custom-checkbox &ndash;&gt;-->
+
+<!--										<div class="custom-control custom-checkbox">-->
+<!--											<input type="checkbox" class="custom-control-input" id="checkout-diff-address">-->
+<!--											<label class="custom-control-label" for="checkout-diff-address">Ship to a different address?</label>-->
+<!--										</div>&lt;!&ndash; End .custom-checkbox &ndash;&gt;-->
+
+<!--	                					<label>Order notes (optional)</label>-->
+
+<!--	        							<textarea class="form-control" cols="30" rows="4" placeholder="Notes about your order, e.g. special notes for delivery"></textarea>-->
+<!--		                		</form>-->
+<!--		                		 </div>&lt;!&ndash; End .col-lg-9 &ndash;&gt;-->
+
+                                            <div class="col-lg-6">
+								    			<div class="card card-dashboard">
+								    				<div class="card-body">
+								    					<h3 class="card-title">Billing Address</h3><!-- End .card-title -->
+														<p>User Name<br>
+														User Company<br>
+														John str<br>
+														New York, NY 10001<br>
+														1-234-987-6543<br>
+														yourmail@mail.com<br>
+														<a href="{% url 'dashboard' %}">Edit <i class="icon-edit"></i></a></p>
+								    				</div><!-- End .card-body -->
+								    			</div><!-- End .card-dashboard -->
+								    		</div><!-- End .col-lg-6 -->
 
 		                		<aside class="col-lg-3">
 		                			<div class="summary">
@@ -287,83 +302,6 @@
                                             </tbody>
 
 		                				</table><!-- End .table table-summary -->
-
-<!--		                				<div class="accordion-summary" id="accordion-payment">-->
-<!--										    <div class="card">-->
-<!--										        <div class="card-header" id="heading-1">-->
-<!--										            <h2 class="card-title">-->
-<!--										                <a role="button" data-toggle="collapse" href="#collapse-1" aria-expanded="true" aria-controls="collapse-1">-->
-<!--										                    Direct bank transfer-->
-<!--										                </a>-->
-<!--										            </h2>-->
-<!--										        </div>&lt;!&ndash; End .card-header &ndash;&gt;-->
-<!--										        <div id="collapse-1" class="collapse show" aria-labelledby="heading-1" data-parent="#accordion-payment">-->
-<!--										            <div class="card-body">-->
-<!--										                Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.-->
-<!--										            </div>&lt;!&ndash; End .card-body &ndash;&gt;-->
-<!--										        </div>&lt;!&ndash; End .collapse &ndash;&gt;-->
-<!--										    </div>&lt;!&ndash; End .card &ndash;&gt;-->
-
-<!--										    <div class="card">-->
-<!--										        <div class="card-header" id="heading-2">-->
-<!--										            <h2 class="card-title">-->
-<!--										                <a class="collapsed" role="button" data-toggle="collapse" href="#collapse-2" aria-expanded="false" aria-controls="collapse-2">-->
-<!--										                    Check payments-->
-<!--										                </a>-->
-<!--										            </h2>-->
-<!--										        </div>&lt;!&ndash; End .card-header &ndash;&gt;-->
-<!--										        <div id="collapse-2" class="collapse" aria-labelledby="heading-2" data-parent="#accordion-payment">-->
-<!--										            <div class="card-body">-->
-<!--										                Ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis.-->
-<!--										            </div>&lt;!&ndash; End .card-body &ndash;&gt;-->
-<!--										        </div>&lt;!&ndash; End .collapse &ndash;&gt;-->
-<!--										    </div>&lt;!&ndash; End .card &ndash;&gt;-->
-
-<!--										    <div class="card">-->
-<!--										        <div class="card-header" id="heading-3">-->
-<!--										            <h2 class="card-title">-->
-<!--										                <a class="collapsed" role="button" data-toggle="collapse" href="#collapse-3" aria-expanded="false" aria-controls="collapse-3">-->
-<!--										                    Cash on delivery-->
-<!--										                </a>-->
-<!--										            </h2>-->
-<!--										        </div>&lt;!&ndash; End .card-header &ndash;&gt;-->
-<!--										        <div id="collapse-3" class="collapse" aria-labelledby="heading-3" data-parent="#accordion-payment">-->
-<!--										            <div class="card-body">Quisque volutpat mattis eros. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros.-->
-<!--										            </div>&lt;!&ndash; End .card-body &ndash;&gt;-->
-<!--										        </div>&lt;!&ndash; End .collapse &ndash;&gt;-->
-<!--										    </div>&lt;!&ndash; End .card &ndash;&gt;-->
-
-<!--										    <div class="card">-->
-<!--										        <div class="card-header" id="heading-4">-->
-<!--										            <h2 class="card-title">-->
-<!--										                <a class="collapsed" role="button" data-toggle="collapse" href="#collapse-4" aria-expanded="false" aria-controls="collapse-4">-->
-<!--										                    PayPal <small class="float-right paypal-link">What is PayPal?</small>-->
-<!--										                </a>-->
-<!--										            </h2>-->
-<!--										        </div>&lt;!&ndash; End .card-header &ndash;&gt;-->
-<!--										        <div id="collapse-4" class="collapse" aria-labelledby="heading-4" data-parent="#accordion-payment">-->
-<!--										            <div class="card-body">-->
-<!--										                Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede. Donec nec justo eget felis facilisis fermentum.-->
-<!--										            </div>&lt;!&ndash; End .card-body &ndash;&gt;-->
-<!--										        </div>&lt;!&ndash; End .collapse &ndash;&gt;-->
-<!--										    </div>&lt;!&ndash; End .card &ndash;&gt;-->
-
-<!--										    <div class="card">-->
-<!--										        <div class="card-header" id="heading-5">-->
-<!--										            <h2 class="card-title">-->
-<!--										                <a class="collapsed" role="button" data-toggle="collapse" href="#collapse-5" aria-expanded="false" aria-controls="collapse-5">-->
-<!--										                    Credit Card (Stripe)-->
-<!--										                    <img src="{% static 'assets/images/payments-summary.png' %}" alt="payments cards">-->
-<!--										                </a>-->
-<!--										            </h2>-->
-<!--										        </div>&lt;!&ndash; End .card-header &ndash;&gt;-->
-<!--										        <div id="collapse-5" class="collapse" aria-labelledby="heading-5" data-parent="#accordion-payment">-->
-<!--										            <div class="card-body"> Donec nec justo eget felis facilisis fermentum.Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Lorem ipsum dolor sit ame.-->
-<!--										            </div>&lt;!&ndash; End .card-body &ndash;&gt;-->
-<!--										        </div>&lt;!&ndash; End .collapse &ndash;&gt;-->
-<!--										    </div>&lt;!&ndash; End .card &ndash;&gt;-->
-<!--										</div>&lt;!&ndash; End .accordion &ndash;&gt;-->
-
 
                                         <img src="{% static 'assets/images/payments-summary.png' %}" alt="payments cards">&nbsp;
 

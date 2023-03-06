@@ -237,5 +237,72 @@ def resetPassword(request):
 def seller(request):
     return render(request, 'seller.html')
 
+# def dashboard(request):
+#       if request.method == "POST":
+#             fname = request.POST.get('fname')
+#             lname = request.POST.get('lname')
+#             phone_number = request.POST.get('phone_number')
+#             password = request.POST['password']
+#             cpassword = request.POST['cpassword']
+#             if password != cpassword:
+#                 messages.error(request, 'password not matching')
+#                 messages.info(request, "password not matching")
+#                 return redirect('dashboard')
+#
+#
+#
+#             # is_active = request.POST.get('isactive')
+#             # in_stock = request.POST.get('instock')
+#             # user = request.user.id
+#             # val = Seller_product.objects.all()
+#             # user=request.user.id
+#             user=Account.objects.create_user( password=password, fname=fname, lname=lname,  phone_number=phone_number)
+#             user.save()
+#             # val = Account(
+#             #     fname=fname, lname=lname, phone_number=phone_number,password=password
+#             # )
+#             #
+#             # val.save()
+#             # add = Account.objects.filter()
+#             # print(cate,pname,pdesc,pimg,price,stock)
+#             return redirect('dashboard')
+#
+#       return render(request, 'dashboard.html')
+#
+
+
+@login_required(login_url='login')
 def dashboard(request):
-    return render(request, 'dashboard.html')
+    # orders = Order.objects.order_by(
+    #     '-created_at').filter(user_id=request.user.id, is_ordered=True)
+    # order_count = orders.count()
+    userprofile=Account.objects.get(id=request.user.id)
+    context = {
+        # 'orders_count': order_count,
+        'userprofile':userprofile,
+    }
+    return render(request, 'dashboard.html', context)
+
+@login_required(login_url='login')
+def editprofile(request):
+    # orders = Order.objects.order_by(
+    #     '-created_at').filter(user_id=request.user.id, is_ordered=True)
+    # order_count = orders.count()
+    userprofile=Account.objects.get(id=request.user.id)
+
+    if request.method == 'POST':
+        fname = request.POST.get("fname")
+        lname = request.POST.get("lname")
+        phone_number = request.POST.get("phone_number")
+
+        userprofile.fname=fname
+        userprofile.lname=lname
+        userprofile.phone_number=phone_number
+        userprofile.save()
+        return redirect('dashboard.html')
+
+    context = {
+        # 'orders_count': order_count,
+        'userprofile':userprofile,
+    }
+    return render(request, 'dashboard.html', context)
