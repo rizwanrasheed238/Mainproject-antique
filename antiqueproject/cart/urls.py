@@ -16,4 +16,5 @@ urlpatterns = [
     path('pdf/<int:id>/', views.get,name='pdf'),
 
 
+
 ]

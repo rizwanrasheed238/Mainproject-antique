@@ -5,6 +5,7 @@ from django.db import models
 
 # Create your models here.
 class seller_product(models.Model):
+
     name=models.CharField(max_length=250,unique=True)
     descripton = models.TextField(blank=True)
     price=models.FloatField(default=0)

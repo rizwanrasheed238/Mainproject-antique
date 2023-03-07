@@ -107,14 +107,13 @@
                 <div class="dropdown-header text-center">
                   <img class="img-md rounded-circle" src="{% static 'seller/images/faces/face8.jpg' %}" alt="Profile image">
                   <p class="mb-1 mt-3">{{user.fname}}</p>
-                  <p class="font-weight-light text-muted mb-0">allenmoreno@gmail.com</p>
+                  <p class="font-weight-light text-muted mb-0">{{user.email}}</p>
                 </div>
                 <a class="dropdown-item"><i class="dropdown-item-icon icon-user text-primary"></i> My Profile <span class="badge badge-pill badge-danger">1</span></a>
                 <a class="dropdown-item"><i class="dropdown-item-icon icon-speech text-primary"></i> Messages</a>
                 <a class="dropdown-item"><i class="dropdown-item-icon icon-energy text-primary"></i> Activity</a>
                 <a class="dropdown-item"><i class="dropdown-item-icon icon-question text-primary"></i> FAQ</a>
-                <a class="dropdown-item"><i class="dropdown-item-icon icon-power text-primary"><a href="{% url 'logout' %}" data-toggle="modal"> Logout</a>
-</i>Sign Out</a>
+                <a class="dropdown-item"><i class="dropdown-item-icon icon-power text-primary" href="{% url 'logout' %}"></i>Signout</a>
               </div>
             </li>
           </ul>
@@ -328,16 +327,15 @@
                       </table>
                     </div>
                     <div class="d-flex mt-4 flex-wrap">
-                      <p class="text-muted">Showing 1 to 10 of 57 entries</p>
                       <nav class="ml-auto">
-                        <ul class="pagination separated pagination-info">
-                          <li class="page-item"><a href="#" class="page-link"><i class="icon-arrow-left"></i></a></li>
-                          <li class="page-item active"><a href="#" class="page-link">1</a></li>
-                          <li class="page-item"><a href="#" class="page-link">2</a></li>
-                          <li class="page-item"><a href="#" class="page-link">3</a></li>
-                          <li class="page-item"><a href="#" class="page-link">4</a></li>
-                          <li class="page-item"><a href="#" class="page-link"><i class="icon-arrow-right"></i></a></li>
-                        </ul>
+<!--                        <ul class="pagination separated pagination-info">-->
+<!--                          <li class="page-item"><a href="#" class="page-link"><i class="icon-arrow-left"></i></a></li>-->
+<!--                          <li class="page-item active"><a href="#" class="page-link">1</a></li>-->
+<!--                          <li class="page-item"><a href="#" class="page-link">2</a></li>-->
+<!--                          <li class="page-item"><a href="#" class="page-link">3</a></li>-->
+<!--                          <li class="page-item"><a href="#" class="page-link">4</a></li>-->
+<!--                          <li class="page-item"><a href="#" class="page-link"><i class="icon-arrow-right"></i></a></li>-->
+<!--                        </ul>-->
                       </nav>
                     </div>
                   </div>
@@ -359,7 +357,7 @@
     </div>
     <!-- container-scroller -->
     <!-- plugins:js -->
-    <script src="{% static 'sellervendors/js/vendor.bundle.base.js' %}"></script>
+    <script src="{% static 'seller/vendors/js/vendor.bundle.base.js' %}"></script>
     <!-- endinject -->
     <!-- Plugin js for this page -->
     <script src="{% static 'seller/vendors/chart.js/Chart.min.js' %}"></script>
@@ -368,8 +366,8 @@
     <script src="{% static 'seller/vendors/chartist/chartist.min.js' %}"></script>
     <!-- End plugin js for this page -->
     <!-- inject:js -->
-    <script src="{% static 'sellerjs/off-canvas.js' %}"></script>
-    <script src="{% static 'sellerjs/misc.js' %}"></script>
+    <script src="{% static 'seller/js/off-canvas.js' %}"></script>
+    <script src="{% static 'seller/js/misc.js' %}"></script>
     <!-- endinject -->
     <!-- Custom js for this page -->
     <script src="{% static 'seller/js/dashboard.js' %}"></script>

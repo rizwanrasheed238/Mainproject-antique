@@ -9,7 +9,7 @@ from antiqueapp.models import Category
 # Create your views here.
 def addproduct(request):
     category = Category.objects.all()
-
+    user = request.user
     if request.method == "POST":
         cate = request.POST.get('cate')
         pname = request.POST.get('pname')
@@ -25,7 +25,7 @@ def addproduct(request):
         # val = Seller_product.objects.all()
         # user=request.user.id
         val = seller_product(
-             category=cate, name=pname, descripton=pdesc, image=pimg, price=price, stock=stock
+             user_id=user,category=cate, name=pname, descripton=pdesc, image=pimg, price=price, stock=stock
         )
         val.save()
         add = seller_product.objects.filter()
