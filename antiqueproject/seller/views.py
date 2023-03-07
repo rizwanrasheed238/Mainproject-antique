@@ -36,11 +36,16 @@ def addproduct(request):
 
 def viewproduct(request):
     user = request.user
-    products = seller_product.objects.filter()
+    products = seller_product.objects.filter(user_id=user)
 
     return render(request, "seller.html", {'products': products})
 
-def deleteproduct(request,id):
-    item  = seller_product.objects.get(id=id)
+def deleteproduct(request):
+    user=request.user
+    item  = seller_product.objects.get(user_id=user)
     item.delete()
     return redirect(request,"seller.html")
+
+def logout(request):
+    auth.logout(request)
+    return redirect('/')
