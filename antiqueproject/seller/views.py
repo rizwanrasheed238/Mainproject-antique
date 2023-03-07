@@ -46,6 +46,5 @@ def deleteproduct(request):
     item.delete()
     return redirect(request,"seller.html")
 
-def logout(request):
-    auth.logout(request)
-    return redirect('/')
+
+
