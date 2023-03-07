@@ -105,6 +105,7 @@ def de_wishlist(request,id):
     Wishlist.objects.get(id=id).delete()
     return redirect('view_wishlist')
 
+
 def checkout(request):
     user = request.user
     cart = Cart.objects.filter(user_id=user)
@@ -159,6 +160,8 @@ def payment_done(request):
     payment.paid = True
     payment.razorpay_payment_id = payment_id
     payment.save()
+    messages.success(request, 'Thank You for ordering')
+
 
     cart=Cart.objects.filter(user=request.user)
     # item = Product.objects.get(product=product, id=item_id)

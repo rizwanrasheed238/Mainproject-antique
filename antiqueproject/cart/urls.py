@@ -15,4 +15,5 @@ urlpatterns = [
     path('paymentdone/', views.payment_done, name='paymentdone'),
     path('pdf/<int:id>/', views.get,name='pdf'),
 
+
 ]

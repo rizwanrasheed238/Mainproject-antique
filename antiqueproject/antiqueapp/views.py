@@ -10,6 +10,8 @@ from django.shortcuts import render
 from django.shortcuts import render
 from django.contrib import messages, auth
 from django.shortcuts import render, redirect,get_object_or_404
+
+from cart.models import OrderPlaced
 from .models import Account,Category,product
 from django.contrib.auth import authenticate
 from django.db.models import Q
@@ -84,6 +86,7 @@ def register(request):
         phone_number=request.POST['phone']
         password=request.POST['password']
         cpassword = request.POST['cpassword']
+        user = authenticate(email=email, password=password)
         roles = request.POST['roles']
         is_user = is_staff = False
         if roles == 'is_admin':
@@ -101,6 +104,8 @@ def register(request):
              messages.error(request, 'password not matching')
              messages.info(request,"password not matching")
              return redirect('login')
+
+
         else:
             user=Account.objects.create_user(email=email, password=password, fname=fname, lname=lname,  phone_number=phone_number,is_staff=is_staff,is_user=is_user)
             user.save()
@@ -273,13 +278,16 @@ def seller(request):
 
 @login_required(login_url='login')
 def dashboard(request):
+    user=request.user
     # orders = Order.objects.order_by(
     #     '-created_at').filter(user_id=request.user.id, is_ordered=True)
     # order_count = orders.count()
     userprofile=Account.objects.get(id=request.user.id)
+    item = OrderPlaced.objects.filter(user_id=user)
     context = {
         # 'orders_count': order_count,
         'userprofile':userprofile,
+        'item':item,
     }
     return render(request, 'dashboard.html', context)
 
