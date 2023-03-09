@@ -322,7 +322,7 @@ def editprofile(request):
 def address(request):
     user = request.user.id
     adrs = Address.objects.filter(user_id=user)
-    ads=Address.object.filter(id=id)
+
 
     print(adrs)
     if request.method == "POST":
@@ -344,4 +344,4 @@ def address(request):
         # print(cate,pname,pdesc,pimg,price,stock)
         return redirect('address')
 
-    return render(request, "dashboard.html",{'adrs':adrs},{'ads':ads})
+    return render(request, "dashboard.html",{'adrs':adrs})

@@ -174,85 +174,23 @@
             			<form id="myform" method="POST" action="{% url 'checkout' %}">
 
 		                	<div class="row">
-<!--	                		<div class="col-lg-9">&ndash;&gt;-->
-<!--                                <form action="Address" method="post" >-->
-<!--                                    {% csrf_token %}-->
-<!--		                			<h2 class="checkout-title">Billing Details</h2>&lt;!&ndash; End .checkout-title &ndash;&gt;-->
-<!--		                				<div class="row">-->
-<!--		                					<div class="col-sm-6">-->
-<!--		                						<label>First Name *</label>-->
-<!--		                						<input type="text" class="form-control" required name="fname" value="{{user.fname}}">-->
-<!--		                					</div>&lt;!&ndash; End .col-sm-6 &ndash;&gt;-->
 
-<!--		                					<div class="col-sm-6">-->
-<!--		                						<label>Last Name *</label>-->
-<!--		                						<input type="text" class="form-control" required name="lname" value="{{user.lname}}">-->
-<!--		                					</div>&lt;!&ndash; End .col-sm-6 &ndash;&gt;-->
-<!--		                				</div>&lt;!&ndash; End .row &ndash;&gt;-->
-
-
-
-
-<!--	            						<label>Street address *</label>-->
-<!--	            						<input type="text" class="form-control" name="street" placeholder="House number and Street name" required>-->
-
-<!--	            						<div class="row">-->
-<!--		                					<div class="col-sm-6">-->
-<!--		                						<label>City *</label>-->
-<!--		                						<input type="text" name="city" class="form-control" required>-->
-<!--		                					</div>&lt;!&ndash; End .col-sm-6 &ndash;&gt;-->
-
-<!--		                					<div class="col-sm-6">-->
-<!--		                						<label>State *</label>-->
-<!--		                						<input type="text" name="state" class="form-control" required>-->
-<!--		                					</div>&lt;!&ndash; End .col-sm-6 &ndash;&gt;-->
-
-
-<!--		                				</div>&lt;!&ndash; End .row &ndash;&gt;-->
-
-<!--		                				<div class="row">-->
-<!--		                					<div class="col-sm-6">-->
-<!--		                						<label>Postcode / ZIP *</label>-->
-<!--		                						<input type="text" name="zip" class="form-control" required>-->
-<!--		                					</div>&lt;!&ndash; End .col-sm-6 &ndash;&gt;-->
-
-<!--		                					<div class="col-sm-6">-->
-<!--		                						<label>Phone *</label>-->
-<!--		                						<input type="tel" name="phone_number" class="form-control" required name="phone" value="{{user.phone_number}}">-->
-<!--		                					</div>&lt;!&ndash; End .col-sm-6 &ndash;&gt;-->
-<!--		                				</div>&lt;!&ndash; End .row &ndash;&gt;-->
-
-<!--	                					<label>Email address *</label>-->
-<!--	        							<input type="email" name="email" class="form-control" required name="email" value="{{user.email}}">-->
-
-<!--&lt;!&ndash;	        							<div class="custom-control custom-checkbox">&ndash;&gt;-->
-<!--                                        <button type="submit" class="btn btn-outline-primary-2 btn-order btn-block">Save Details</button>-->
-
-<!--										&lt;!&ndash; End .custom-checkbox &ndash;&gt;-->
-
-<!--										<div class="custom-control custom-checkbox">-->
-<!--											<input type="checkbox" class="custom-control-input" id="checkout-diff-address">-->
-<!--											<label class="custom-control-label" for="checkout-diff-address">Ship to a different address?</label>-->
-<!--										</div>&lt;!&ndash; End .custom-checkbox &ndash;&gt;-->
-
-<!--	                					<label>Order notes (optional)</label>-->
-
-<!--	        							<textarea class="form-control" cols="30" rows="4" placeholder="Notes about your order, e.g. special notes for delivery"></textarea>-->
-<!--		                		</form>-->
-<!--		                		 </div>&lt;!&ndash; End .col-lg-9 &ndash;&gt;-->
 
                                             <div class="col-lg-6">
 								    			<div class="card card-dashboard">
 								    				<div class="card-body">
-								    					<h3 class="card-title">Billing Address</h3><!-- End .card-title -->
-                                                        {% for i in adrs %}
-														<p>{{i.fname}}{{i.lname}}<br>
-														{{i.street}}<br>
-														{{i.city}}<br>
-														{{i.state}}<br>
-														{{i.user.phone_number}}<br>
-														{{i.user.email}}<br>
-                                                             {% endfor %}
+								    					<h3 class="card-title">Billing Address</h3>
+                                                        {% for i in address %}
+                                <input type="radio" value="{{i.id}}" name="radio">
+                                <table style="margin-left:22px;margin-top:-25px;">
+                                    <tr><td style="color:#000;font-weight:bold;">{{i.fname}} {{i.lname}}</td></tr>
+                                    <tr><td style="color:#000;font-weight:bold;">{{i.phone}}</td></tr>
+
+                                    <tr><td style="color:#000;font-weight:bold;">{{i.street}}, {{i.city}}</td></tr>
+                                    <tr><td style="color:#000;font-weight:bold;">{{i.zip}}, {{i.state}}</td></tr>
+                                <tr> <td> ________________________</td></tr>
+                                </table>
+                                {% endfor %}
 
 														<a href="{% url 'dashboard' %}">Edit <i class="icon-edit"></i></a></p>
 								    				</div><!-- End .card-body -->

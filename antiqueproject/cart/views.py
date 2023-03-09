@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages, auth
 from django.contrib.auth.decorators import login_required
 from cart.models import Cart, Wishlist, Payment, OrderPlaced
-from antiqueapp.models import Category, product
+from antiqueapp.models import Category, product, Address
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.generic import View
@@ -141,6 +141,8 @@ def checkout(request):
     order_id = payment_response['id']
     request.session['order_id'] = order_id
     order_status = payment_response['status']
+    add=Address.objects.filter(user_id= request.user)
+    print(add,"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
     if order_status == 'created':
         payment = Payment(user=request.user,
                           amount=total,
@@ -148,7 +150,7 @@ def checkout(request):
                           razorpay_payment_status=order_status)
         payment.save()
 
-    return render(request, 'checkout.html', {'orders':orders,'check': cart, 'total': total, 'category': category,'razoramount':razoramount})
+    return render(request, 'checkout.html', {'orders':orders,'check': cart, 'total': total, 'category': category,'razoramount':razoramount,'address':add})
 
 def payment_done(request):
     order_id=request.session['order_id']
@@ -184,10 +186,10 @@ def get(request, id, *args, **kwargs, ):
         total = 0
         for o in orders:
             total = total + (o.product.price * o.quantity)
-        # addrs = user_address.objects.get(user_id=request.user.id)
+        # addrs = Address.objects.get(user_id=request.user.id)
         # place=orderplaced.objects.filter(user_id=request.user.id)
 
-        # addresss=user_address.objects.get(user_id=request.user.id)
+        # address=Address.objects.get(user_id=request.user.id)
 
         # for i in addrs:
         #     print(i.user,"#######################")
