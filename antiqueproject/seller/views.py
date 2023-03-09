@@ -28,7 +28,7 @@ def addproduct(request):
              user_id=user,category=cate, name=pname, descripton=pdesc, image=pimg, price=price, stock=stock
         )
         val.save()
-        add = seller_product.objects.filter()
+        # add = seller_product.objects.filter()
         # print(cate,pname,pdesc,pimg,price,stock)
         return redirect('seller')
 

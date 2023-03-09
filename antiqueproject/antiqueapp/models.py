@@ -116,3 +116,22 @@ class product(models.Model):
 
     def __str__(self):
         return '{}'.format(self.name)
+
+
+
+class Address(models.Model):
+    user = models.ForeignKey(Account, on_delete=models.SET_NULL, null=True)
+    fname=models.CharField(max_length=250)
+    lname=models.CharField(max_length=250)
+    street = models.TextField(blank=True)
+    city=models.TextField(default=0)
+    state=models.CharField(max_length=250)
+    zip=models.IntegerField(default=1)
+    phone=models.BigIntegerField(default=0)
+
+    def __str__(self):
+        return self.fname
+
+
+# def __str__(self):
+#     return '{}'.format(self.name)

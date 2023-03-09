@@ -245,12 +245,15 @@
 								    			<div class="card card-dashboard">
 								    				<div class="card-body">
 								    					<h3 class="card-title">Billing Address</h3><!-- End .card-title -->
-														<p>User Name<br>
-														User Company<br>
-														John str<br>
-														New York, NY 10001<br>
-														1-234-987-6543<br>
-														yourmail@mail.com<br>
+                                                        {% for i in adrs %}
+														<p>{{i.fname}}{{i.lname}}<br>
+														{{i.street}}<br>
+														{{i.city}}<br>
+														{{i.state}}<br>
+														{{i.user.phone_number}}<br>
+														{{i.user.email}}<br>
+                                                             {% endfor %}
+
 														<a href="{% url 'dashboard' %}">Edit <i class="icon-edit"></i></a></p>
 								    				</div><!-- End .card-body -->
 								    			</div><!-- End .card-dashboard -->
@@ -326,7 +329,7 @@
 
                                 var a = response.razorpay_payment_id;
 
-
+                                alert({{order_id}})
 
                                 window.location.href = 'http://127.0.0.1:8000/paymentdone?order_id=${response.razorpay_order_id}&payment_id='+a
 

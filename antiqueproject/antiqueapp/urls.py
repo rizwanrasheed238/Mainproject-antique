@@ -21,11 +21,10 @@ urlpatterns = [
     path('search/',views.search,name="search"),
     path('seller/',views.seller,name="seller"),
     path('dashboard/',views.dashboard,name="dashboard"),
+    path('address/',views.address,name='address'),
 
 
 
-    # path('',views.allProdcat,name='allProdCat'),
-     # path('<slug:c_slug>/',views.allProdCat,name='products_by_category')
 
 
 ]

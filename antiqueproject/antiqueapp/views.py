@@ -15,6 +15,8 @@ from cart.models import OrderPlaced
 from .models import Account,Category,product
 from django.contrib.auth import authenticate
 from django.db.models import Q
+from antiqueapp.models import Address
+
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
@@ -314,3 +316,32 @@ def editprofile(request):
         'userprofile':userprofile,
     }
     return render(request, 'dashboard.html', context)
+
+
+
+def address(request):
+    user = request.user.id
+    adrs = Address.objects.filter(user_id=user)
+    ads=Address.object.filter(id=id)
+
+    print(adrs)
+    if request.method == "POST":
+        fname = request.POST.get('fname')
+        lname = request.POST.get('lname')
+        street = request.POST.get('street')
+        city = request.POST.get('city')
+        state = request.POST.get('state')
+        zip = request.POST.get('zip')
+        phone = request.POST.get('phone_number')
+
+        # user = request.user.id
+        # val = Seller_product.objects.all()
+        # user=request.user.id
+        val = Address(
+             user_id=user,fname=fname, lname=lname, street=street, city=city, state=state, zip=zip,phone=phone
+        )
+        val.save()
+        # print(cate,pname,pdesc,pimg,price,stock)
+        return redirect('address')
+
+    return render(request, "dashboard.html",{'adrs':adrs},{'ads':ads})
