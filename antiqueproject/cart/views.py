@@ -11,6 +11,7 @@ from django.http import HttpResponse
 from django.views.generic import View
 from .utils import render_to_pdf
 
+
 @login_required(login_url='login')
 def cart(request):
     user = request.user

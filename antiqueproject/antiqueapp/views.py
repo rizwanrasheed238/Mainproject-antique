@@ -7,15 +7,17 @@ from django.shortcuts import render
 # def index(request):
 #     return render(request,"index-1.html")
 
-from django.shortcuts import render
 from django.contrib import messages, auth
 from django.shortcuts import render, redirect,get_object_or_404
+from django.urls import reverse_lazy
 
-from cart.models import OrderPlaced
-from .models import Account,Category,product
+from cart.models import OrderPlaced, Wishlist, Cart
+from .models import Account, Category, product, ReviewRating
 from django.contrib.auth import authenticate
 from django.db.models import Q
-from antiqueapp.models import Address
+from antiqueapp.models import Address,Review
+from .forms import ReviewForm
+from django.contrib import messages
 
 
 from django.contrib.auth.decorators import login_required
@@ -26,6 +28,14 @@ from django.utils.encoding import force_bytes
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMessage
 from django.core.mail import send_mail
+from django.http import JsonResponse
+from textblob import TextBlob
+
+from django.db.models import Avg
+from antiqueapp.models import product, Rating
+from surprise import SVD
+from surprise import Dataset
+from surprise import Reader
 
 
 def products(request):
@@ -34,14 +44,57 @@ def products(request):
     return render(request, 'product.html', {'datas': products, 'category': category})
 
 def home(request):
+    user = request.user
     products = product.objects.all()
     category = Category.objects.all()
-    return render(request, 'home.html', {'datas': products, 'category': category})
+    wlist = Wishlist.objects.filter(user_id=user.id)
+    cart = Cart.objects.filter(user_id=user.id)
+
+    sentiment_score = request.GET.get('sentiment_score', None)
+    return render(request, 'home.html', {'datas': products, 'category': category,'sentiment_score': sentiment_score,'wlist':wlist,'cart':cart})
+
 
 def productdet(request,id):
     products = product.objects.filter(id=id)
     # category = Category.objects.all()
     return render(request, 'productdet.html', {'datas': products})
+
+
+
+
+
+@login_required
+def recommend_products(request):
+    # Get all the products in the database
+    products = product.objects.all()
+
+    # Create a dictionary of the ratings for each product
+    product_ratings = {}
+    for product in products:
+        ratings = Rating.objects.filter(product=product)
+        if ratings:
+            product_ratings[product.id] = round(ratings.aggregate(Avg('value'))['value__avg'], 2)
+
+    # Load the data into the Surprise library
+    reader = Reader(rating_scale=(1, 5))
+    data = Dataset.load_from_dict(product_ratings, reader)
+    trainset = data.build_full_trainset()
+
+    # Train the SVD algorithm on the data
+    algo = SVD()
+    algo.fit(trainset)
+
+    # Get the top 5 recommended products for the current user
+    current_user = request.user
+    user_ratings = Rating.objects.filter(user=current_user)
+    user_product_ids = [rating.product.id for rating in user_ratings]
+    testset = trainset.build_anti_testset()
+    testset = filter(lambda x: x[0] == current_user.id, testset)
+    predictions = algo.test(testset)
+    top_n = sorted(predictions, key=lambda x: x.est, reverse=True)[:5]
+    recommended_products = [product.objects.get(id=pred.iid) for pred in top_n]
+    print(recommended_products,"******************************************************8")
+    return render(request, 'productdet.html', {'products': recommended_products})
 
 
 def blog(request):
@@ -62,7 +115,7 @@ def login(request):
             request.session['email']=email
 
             if user.is_admin:
-                return redirect('admin/')
+                return redirect('/admin/')
             elif user.approved_staff:
                 return redirect('seller')
 
@@ -244,40 +297,6 @@ def resetPassword(request):
 def seller(request):
     return render(request, 'seller.html')
 
-# def dashboard(request):
-#       if request.method == "POST":
-#             fname = request.POST.get('fname')
-#             lname = request.POST.get('lname')
-#             phone_number = request.POST.get('phone_number')
-#             password = request.POST['password']
-#             cpassword = request.POST['cpassword']
-#             if password != cpassword:
-#                 messages.error(request, 'password not matching')
-#                 messages.info(request, "password not matching")
-#                 return redirect('dashboard')
-#
-#
-#
-#             # is_active = request.POST.get('isactive')
-#             # in_stock = request.POST.get('instock')
-#             # user = request.user.id
-#             # val = Seller_product.objects.all()
-#             # user=request.user.id
-#             user=Account.objects.create_user( password=password, fname=fname, lname=lname,  phone_number=phone_number)
-#             user.save()
-#             # val = Account(
-#             #     fname=fname, lname=lname, phone_number=phone_number,password=password
-#             # )
-#             #
-#             # val.save()
-#             # add = Account.objects.filter()
-#             # print(cate,pname,pdesc,pimg,price,stock)
-#             return redirect('dashboard')
-#
-#       return render(request, 'dashboard.html')
-#
-
-
 @login_required(login_url='login')
 def dashboard(request):
     user=request.user
@@ -345,3 +364,67 @@ def address(request):
         return redirect('address')
 
     return render(request, "dashboard.html",{'adrs':adrs})
+
+
+#for data visualisatiom im admin panel
+import matplotlib.pyplot as plt
+from django.db.models.functions import ExtractMonth
+from django.db.models import Count
+from cart.models import OrderPlaced
+from django.views.decorators.csrf import csrf_exempt
+import matplotlib
+matplotlib.use('Agg')
+
+
+@csrf_exempt
+def view(request):
+    data = OrderPlaced.objects.filter(is_ordered=True).annotate(month=ExtractMonth('ordered_date')).values(
+        'month').order_by('month')
+
+    months = [month[1] for month in OrderPlaced.MONTH_CHOICES]
+
+    totals = [data.filter(month=month[0]).aggregate(total=Count('id'))['total'] for month in OrderPlaced.MONTH_CHOICES]
+
+    plt.bar(months, totals)
+    plt.title('Products sold by month')
+    plt.xlabel('Month')
+    plt.ylabel('Total')
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+
+    # Convert the plot to a Django view response
+    from io import BytesIO
+    import base64
+    buffer = BytesIO()
+    plt.savefig(buffer, format='png')
+    buffer.seek(0)
+    image_png = buffer.getvalue()
+    buffer.close()
+    graphic = base64.b64encode(image_png)
+    graphic = graphic.decode('utf-8')
+
+    # Render the template with the plot and URLs
+    context = {
+        'graphic': graphic,
+    }
+    return render(request, 'admin/products_sold_by_month.html', context)
+
+
+
+
+
+def rateproduct(request,id):
+    order = get_object_or_404(OrderPlaced,id=id)
+    product = order.product
+    if request.method == 'POST':
+        review = request.POST['review']
+        review_data = Review.objects.create(
+            user=request.user,
+            product=product,
+            review=review,
+        )
+        return redirect(reverse_lazy('home'))
+    else:
+        context = {'order': order, 'product': product, 'productname': product.name}
+        return render(request, 'review.html', context)
+

@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.urls import reverse
+from django.db.models import Avg, Count
+from textblob import TextBlob
 
 
 class MyAccountManager(BaseUserManager):
@@ -119,6 +121,27 @@ class product(models.Model):
 
 
 
+    def averageReview(self):
+        reviews = ReviewRating.objects.filter(product=self, status=True).aggregate(average=Avg('rating'))
+        avg = 0
+        if reviews['average'] is not None:
+            avg = float(reviews['average'])
+        return avg
+
+    def countReview(self):
+        reviews = ReviewRating.objects.filter(product=self, status=True).aggregate(count=Count('id'))
+        count = 0
+        if reviews['count'] is not None:
+            count = int(reviews['count'])
+        return count
+
+class Rating(models.Model):
+    user = models.ForeignKey(Account, on_delete=models.CASCADE)
+    product = models.ForeignKey(product, on_delete=models.CASCADE)
+    value = models.IntegerField()
+
+
+
 class Address(models.Model):
     user = models.ForeignKey(Account, on_delete=models.SET_NULL, null=True)
     fname=models.CharField(max_length=250)
@@ -135,3 +158,38 @@ class Address(models.Model):
 
 # def __str__(self):
 #     return '{}'.format(self.name)
+
+class ReviewRating(models.Model):
+    product = models.ForeignKey(product, on_delete=models.CASCADE)
+    user = models.ForeignKey(Account, on_delete=models.CASCADE)
+    subject = models.CharField(max_length=100, blank=True)
+    review = models.TextField(max_length=500, blank=True)
+    rating = models.FloatField()
+    ip = models.CharField(max_length=20, blank=True)
+    status = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.subject
+
+
+class Review(models.Model):
+    user = models.ForeignKey(Account, on_delete=models.CASCADE)
+    product = models.ForeignKey(product, on_delete=models.CASCADE)
+    review = models.TextField(max_length=500, blank=True)
+    sentiment_polarity = models.FloatField(default=0.0)
+
+
+    def __str__(self):
+        return self.product
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.sentiment_polarity = self.get_sentiment()
+        super().save(*args, **kwargs)
+
+    def get_sentiment(self):
+        blob = TextBlob(self.review)
+        sentiment_polarity = blob.sentiment.polarity
+        return sentiment_polarity

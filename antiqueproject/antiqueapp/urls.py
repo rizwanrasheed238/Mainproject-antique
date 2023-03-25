@@ -1,11 +1,15 @@
-
+from django.contrib import admin
 
 from . import views
 from django.urls import path,include
 
+from .admin import productAdmin
+
 urlpatterns = [
     path('index/',views.index,name='index'),
     path('', views.home, name="home"),
+    # path('score/<int:sentiment_score>/', views.home, name='home'),
+
     path('login/',views.login,name="login"),
     path('register/', views.register, name="register"),
     path('logout/', views.logout, name="logout"),
@@ -22,9 +26,9 @@ urlpatterns = [
     path('seller/',views.seller,name="seller"),
     path('dashboard/',views.dashboard,name="dashboard"),
     path('address/',views.address,name='address'),
-
-
-
-
+    path('view/', views.view, name='view'),
+    path('recommendations/', views.recommend_products, name='recommendations'),
+    path('review/<int:id>/', views.rateproduct, name='review'),
+    path('admin/antiqueapp/product/sentiment-graph/', admin.site.admin_view(productAdmin.sentiment_graph), name='sentiment-graph'),
 
 ]

@@ -152,6 +152,12 @@
                 <i class="icon-screen-desktop menu-icon"></i>
               </a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'sentiment' %}">
+                <span class="menu-title">Sentiment Score</span>
+                <i class="icon-screen-desktop menu-icon"></i>
+              </a>
+            </li>
             <li class="nav-item nav-category"><span class="nav-link">Manage</span></li>
             <li class="nav-item">
               <a class="nav-link" data-toggle="collapse" href="{% url 'addproduct' %}" aria-expanded="false" aria-controls="ui-basic">
@@ -171,7 +177,15 @@
                 <i class="icon-globe menu-icon"></i>
               </a>
             </li>
-
+<!--<h1>Welcome to the sentiment analysis app!</h1>-->
+<!--    <form method="GET" action="{% url 'sentiment' %}">-->
+<!--        <label for="text">Enter some text:</label><br>-->
+<!--        <textarea name="text" id="text" cols="30" rows="5"></textarea><br>-->
+<!--        <button type="submit">Analyze Sentiment</button>-->
+<!--    </form>-->
+<!--    {% if sentiment_score %}-->
+<!--        <p>The sentiment score for the text you entered is: {{ sentiment_score }}</p>-->
+<!--    {% endif %}-->
 
           </ul>
         </nav>

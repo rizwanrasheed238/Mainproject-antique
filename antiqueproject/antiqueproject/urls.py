@@ -19,9 +19,6 @@ from django.contrib.auth.models import Group
 from django.urls import path,include
 from django.conf.urls.static import static
 
-admin.site.site_header= "Medieval Store Admin"
-admin.site.site_title= "Admin Portal"
-admin.site.index_title="The Medieval Store"
 
 
 # admin.site.unregister(Group)

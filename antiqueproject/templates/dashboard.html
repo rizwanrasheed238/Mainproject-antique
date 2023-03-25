@@ -198,6 +198,7 @@
                                               <tr>
                                                 <th class="font-weight-bold">Product Name</th>
                                                 <th class="font-weight-bold">Price</th>
+                                                <th class="font-weight-bold">Review</th>
 
                                               </tr>
                                             </thead>
@@ -212,6 +213,7 @@
 <!--                                                </td>-->
                                                 <td>{{i.product.name}}</td>
                                                 <td>{{i.product.price}}</td>
+                                                <td><a href="{% url 'review' i.id %}">Rate us</a></td>
 
                                               </tr>
                                                {% endfor %}
