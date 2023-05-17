@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sentiment Analysis Results</title>
+</head>
+<body>
+	<h1>Sentiment Analysis Results</h1>
+	<form method="GET">
+		<label for="text">Enter some text:</label><br>
+		<textarea name="text" id="text" cols="30" rows="5"></textarea><br>
+		<button type="submit">Analyze Sentiment</button>
+	</form>
+	{% if sentiment_score %}
+		<p>The sentiment score for the text you entered is: {{ sentiment_score }}</p>
+	{% endif %}
+</body>
+</html>
