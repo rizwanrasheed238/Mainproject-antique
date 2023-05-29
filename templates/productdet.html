@@ -429,6 +429,21 @@
                            
                         </div><!-- End .product -->
 
+               <form action="{% url 'viewvi' %}" method="POST" enctype="multipart/form-data">
+                      {% csrf_token %}
+                  <div class="upload-box" style="border: 2px solid #ccc; padding: 20px; background-color: #f9f9f9; text-align: center; border-radius: 5px; margin: 20px;">
+                    <h2 style="font-size: 24px; margin-bottom: 10px;">Choose the Product suited for your room</h2>
+                    <label for="image-upload">Upload Image:</label>
+                    <input type="file" id="image-upload" name="image" accept="image/*">
+                    <br>
+                    <input type="submit" value="Submit">
+                       {% for i in datas %}
+                     <a href="{% url 'p' i.id %}">Display</a>
+                      {% endfor %}
+                  </div>
+                </form>
+
+
                         
 
                         
@@ -460,13 +475,7 @@
 	            			<div class="widget">
 	            				<h4 class="widget-title">Useful Links</h4><!-- End .widget-title -->
 
-	            				<ul class="widget-list">
-	            					<li><a href="about.html">About Molla</a></li>
-	            					<li><a href="#">How to shop on Molla</a></li>
-	            					<li><a href="#">FAQ</a></li>
-	            					<li><a href="contact.html">Contact us</a></li>
-	            					<li><a href="login.html">Log in</a></li>
-	            				</ul><!-- End .widget-list -->
+
 	            			</div><!-- End .widget -->
 	            		</div><!-- End .col-sm-6 col-lg-3 -->
 

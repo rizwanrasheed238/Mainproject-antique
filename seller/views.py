@@ -1,8 +1,14 @@
+from datetime import datetime
+
+from django.db.models import Count
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.conf import settings
 from itertools import product
 from django.shortcuts import render, redirect
 from django.contrib import messages, auth
+from django.template.loader import get_template
+
 from seller.models import seller_product
 from antiqueapp.models import Category,product,Address
 from cart.models import OrderPlaced
@@ -93,11 +99,45 @@ def vieworders(request):
 
 
 
-# def deleteproduct(request, id):
+def generate_report(request):
+    user = request.user
+    order_details = OrderPlaced.objects.filter(user=user, is_ordered=True)
+    addrs = Address.objects.filter(user=user)
 
-#         item = seller_product.objects.get(id=id)
-#         item.delete()
-#         return redirect(reverse('seller'))
+    # Generate report data
+    order_count = order_details.count()
+    product_count = order_details.values('product').distinct().count()
+    order_dates = order_details.dates('ordered_date', 'day')
+    orders_per_day = order_details.values('ordered_date').annotate(count=Count('id'))
+
+    # Render report template
+    template = get_template('report1.html')
+    context = {
+        'user': user,
+        'order_count': order_count,
+        'product_count': product_count,
+        'order_dates': order_dates,
+        'orders_per_day': orders_per_day,
+    }
+    report = template.render(context)
+
+    # Generate a unique file name for the report
+    file_name = f'report1_{datetime.now().strftime("%Y%m%d%H%M%S")}.html'
+
+    # Save the report to a file
+    with open(file_name, 'w') as file:
+        file.write(report)
+
+    # Provide the report as a download to the user
+    response = HttpResponse(content_type='application/force-download')
+    response['Content-Disposition'] = f'attachment; filename="{file_name}"'
+    with open(file_name, 'r') as file:
+        response.write(file.read())
+
+    return response
+
+
+
 
 
 def logout(request):

@@ -1,0 +1,21 @@
+{% load custom_filters %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order Report</title>
+</head>
+<body>
+    <h1>Order Report for {{ user.fname }}</h1>
+    <p>Order count: {{ order_count }}</p>
+    <p>Product count: {{ product_count }}</p>
+
+    <h2>Orders per day:</h2>
+    <ul>
+        {% for date in order_dates %}
+        <li>{{ date|date:"F j, Y" }} - {{ orders_per_day|get_count:date }}</li>
+        {% empty %}
+        <li>No orders found</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

@@ -31,8 +31,8 @@ urlpatterns = [
     path('review/<int:id>/', views.rateproduct, name='review'),
     path('admin/antiqueapp/product/sentiment-graph/', admin.site.admin_view(productAdmin.sentiment_graph), name='sentiment-graph'),
     path('admin/antiqueapp/product/top-products/', admin.site.admin_view(productAdmin.top_products), name='top-products'),
-
+    path('viewvi/', views.viewvi, name='viewvi'),
     path('search/',views.search_products, name='search_products'),
-
+    path('p/<int:id>/', views.p, name='p'),
 
 ]

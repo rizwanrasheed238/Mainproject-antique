@@ -5,6 +5,7 @@ from django.db.models import Avg, Count
 from textblob import TextBlob
 
 
+
 class MyAccountManager(BaseUserManager):
     def create_user(self, fname, lname, email, phone_number,password=None):
         if not email:
@@ -103,6 +104,9 @@ class product(models.Model):
     descripton = models.TextField(blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='products', blank=True)
+    display = models.ImageField(upload_to='photos/display', default="a3.png")
+    display2 = models.ImageField(upload_to='photos/display', default="a3.png")
+    display3 = models.ImageField(upload_to='photos/display', default="a3.png")
     price = models.DecimalField(max_digits=10, decimal_places=2)
     stock = models.IntegerField()
     availabe = models.BooleanField(default=True)
@@ -146,7 +150,16 @@ class product(models.Model):
 
 
 
+class Product_Display(models.Model):
+    user = models. OneToOneField(Account, on_delete=models.CASCADE,null=True,editable=False,unique=True)
 
+    images = models.ImageField(upload_to='view/photos',null=True, blank=True)
+
+class Info(models.Model):
+    name=models.CharField(max_length=200)
+
+    def __str__(self):
+        return str(self.name)
 
 
 class Address(models.Model):

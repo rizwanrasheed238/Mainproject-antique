@@ -10,7 +10,7 @@ from matplotlib.patches import Patch
 
 from cart.models import Payment, OrderPlaced
 # Register your models here.
-from .models import Category, product, Account,Review
+from .models import Category, product, Account,Review,Product_Display
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -98,6 +98,8 @@ class productAdmin(admin.ModelAdmin):
         response.write(base64.b64decode(graphic))
         return response
 
+
+
     def sentiment_graph(self, request):
         products = product.objects.all()
         data = {}
@@ -175,8 +177,8 @@ class AccountAdmin(UserAdmin):
 
 admin.site.register(Account, AccountAdmin)
 
-
-# admin.site.register(ReviewRating)
+#
+admin.site.register(Product_Display)
 
 
 
